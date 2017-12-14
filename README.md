@@ -22,3 +22,6 @@ To be added:-
 1) HTTP Caching
 2) CSRF Protection
 3) Login API to integrate with android_apps using JSON Token Authentication.
+
+
+Any Contribution regarding bugs,ideas,improvements are very much appreciated.
