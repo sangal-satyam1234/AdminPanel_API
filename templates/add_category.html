@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Satyam">
+  <title>Admin Dashboard</title>
+  <!-- Bootstrap core CSS-->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../css/sb-admin.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../vendor/DataTables/datatables.min.css"/>
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+
+  
+
+ <?php include 'navbar.html' ?>
+ 
+ 
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="dashboard">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Add Category</li>
+      </ol>
+	 
+	 
+    <!-- /.container-fluid-->
+		<div class="row">
+		<div class="col-sm-4 col-md-4"></div>
+		<div class="col-sm-4 col-md-4">
+			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">New Category</button>
+		</div>
+			<div class="col-sm-4 col-md-4"></div>
+		</div>
+	
+  
+			
+	<div class="card mb-3" style='margin-top:10px;'>
+        <div class="card-header">
+          <i class="fa fa-table"></i> My Categories</div>
+        <div class="card-body">
+          
+		  
+		
+		<div class="col-sm-12 col-md-12 table-responsive">
+		
+		
+		<table id="myTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr >
+				<th>ID</th>
+				<th>Name</th>
+				<th>Action</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+				<th>ID</th>
+                <th>Name</th>
+               <th>Action</th>
+            </tr>
+        </tfoot>
+		
+	</table>
+	</div>
+	</div>
+	
+	
+	</div>
+  
+  
+  
+  
+  
+  
+	</div>
+	
+	<?php include 'footer.html'; ?>
+	
+    
+	<!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/popper/popper.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+  
+    <!-- Custom scripts for this page-->
+  
+   
+  
+	<script type="text/javascript" src="../vendor/DataTables/datatables.min.js"></script>
+  
+  </div>
+
+	<?php include 'add_category_form.html'; ?>
+  
+	<script>
+       $(document).ready(function() {
+			var table=$('#myTable').DataTable(
+			{
+				"order": [[ 0, "desc" ]] ,
+				
+				"paging":         true,
+				
+					
+				
+				
+				"ajax": "get_category" ,
+				"columns": [{ "data": "category_id" },
+				{ "data": "category_name" },
+				{ "data":null,
+					"render":function( data,type,row,meta){
+							return '<button onclick="my_del('+data.category_id+')" ><i class="fa fa-trash"></i></button>';
+					}
+				}
+				]
+    
+			
+			}
+			
+					
+				
+				
+				
+			);
+			
+			
+			
+			
+		} );
+		
+			function my_del(e)
+		{
+			ur='delete_category/'+e;
+			$.ajax({
+				url: ur,
+				type: 'DELETE',
+				//data: e,
+				success: function (data) {
+							console.log(data);
+							alert('Category removed');
+							location.reload(true);
+				},
+				error: function (data) {
+						alert('Some error occurred');
+						console.log(data);
+						location.reload(true);
+				}
+			
+			
+			});
+		
+		}
+		
+    </script>
+  
+  
+  
+</body>
+
+</html>
+

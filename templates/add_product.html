@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Satyam">
+  <title>Admin Dashboard</title>
+  <!-- Bootstrap core CSS-->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../css/sb-admin.css" rel="stylesheet">
+  
+  <link rel="stylesheet" type="text/css" href="../vendor/DataTables/datatables.min.css"/>
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+
+  
+
+ <?php include 'navbar.html' ?>
+ 
+ 
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="dashboard">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Add Products</li>
+      </ol>
+	  
+	<div class="row">
+		<div class="col-sm-4 col-md-4"></div>
+		<div class="col-sm-4 col-md-4">
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">New Product</button>
+		</div>
+			<div class="col-sm-4 col-md-4"></div>
+	</div>
+	
+
+	
+	<div class="card mb-3" style='margin-top:10px;'>
+        <div class="card-header">
+          <i class="fa fa-table"></i> Products</div>
+        <div class="card-body">
+          
+		  
+		
+		<div class="col-sm-12 col-md-12 table-responsive">
+		
+		
+		<table id="myTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr >
+                 <th>Product ID</th>
+				<th>Product Name</th>
+                <th>Category Name</th>
+				<th>Product Details</th>
+                <th>Product Pic</th>
+				<th>Action</th>
+               
+            </tr>
+        </thead>
+        <tfoot>
+             <tr >
+                 <th>Product ID</th>
+				<th>Product Name</th>
+                <th>Category Name</th>
+				<th>Product Details</th>
+                <th>Product Pic</th>
+				<th>Action</th>
+               
+            </tr>
+        </tfoot>
+	</table>
+	</div>
+	</div>
+	</div>	
+	
+	
+	
+	  
+	  
+	  
+	</div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+  
+	
+	
+	
+	
+	<?php include 'footer.html'; ?>
+	
+	
+    
+	<!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/popper/popper.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+   
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    
+    
+	<script type="text/javascript" src="../vendor/DataTables/datatables.min.js"></script>
+	<script type="text/javascript" src="../vendor/DataTables/jquery.dataTables.js"></script>
+	
+
+   
+  
+  </div>
+
+  <?php include 'add_product_form.html'; ?>
+ 
+	
+	<div class="modal fade" id="myImgModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" style="display:table;">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+       
+		<img id="myImgPreview" src="" width="500" height="500"></img>
+       
+      </div>
+    
+    </div>
+  </div>
+</div>
+	
+	
+  
+  
+  
+  <script>
+       $(document).ready(function() {
+			var table=$('#myTable').DataTable(
+			{
+				"order": [[ 0, "asc" ]] ,
+				
+				"paging":         true,
+				"ajax": "get_product" ,
+				"columns": [{ "data": "product_id" },
+				{ "data": "product_name" },
+				{ "data": "category_name"},
+				{"data": "product_details"},
+				{ "data": null,
+					"render": function ( data, type, row, meta ) {
+					return '<img src="'+data.product_image_path+'/'+data.product_image_name+'" style="width:70px;height:70px;" onclick="showModal(this)">';
+				
+				}},
+				{ "data":null,
+					"render":function( data,type,row,meta){
+							return '<button onclick="my_del('+data.product_id+')" ><i class="fa fa-trash"></i></button>';
+					}
+				}
+				]
+				
+				
+			}
+				);
+			
+			
+			
+			
+		} );
+		
+		function showModal(e)
+		{
+			$('#myImgModal').modal('show');
+			$('#myImgPreview').attr('src', e.src);
+		
+		}
+		
+		$('#myImgModal').on('show.bs.modal', function () {
+       $(this).find('.modal-body').css({
+              width:'auto', //probably not needed
+              height:'auto', //probably not needed 
+              'max-height':'100%'
+       });
+});
+		
+		function my_del(e)
+		{
+			ur='delete_product/'+e;
+			$.ajax({
+				url: ur,
+				type: 'DELETE',
+				//data: e,
+				success: function (data) {
+							console.log(data);
+							alert('Product removed');
+							location.reload(true);
+				},
+				error: function (data) {
+						alert('Some error occurred');
+						console.log(data);
+						location.reload(true);
+				}
+			
+			
+			});
+		
+		}
+		
+    </script>
+  
+</body>
+
+</html>

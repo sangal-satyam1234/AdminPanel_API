@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Satyam">
+  <title>Admin Dashboard</title>
+  <!-- Bootstrap core CSS-->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../css/sb-admin.css" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+
+  
+
+ <?php include 'navbar.html' ?>
+ 
+ 
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="dashboard">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Account Settings</li>
+      </ol>
+	  
+	  
+	<div class="card mb-3" style='margin-top:10px;'>
+        <div class="card-header">
+          Change Password</div>
+        <div class="card-body">
+	<form id="myForm" action="change_pass" method="post">
+		
+		<div class="form-group">
+            <div class="form-row">
+              <div class="col-md-12 col-sm-12">
+                <label for="new_password">New Password</label>
+                <input class="form-control" id="new_password" name="new_password" type="password" aria-describedby="nameHelp" placeholder="Enter new password" required>
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <label for="conf_password">Confirm Password</label>
+                <input class="form-control" id="conf_password" name="conf_password" type="password" aria-describedby="nameHelp" placeholder="Confirm Password" required>
+              </div>
+			</div>
+			<br>
+				  
+		<input type="hidden" name="<?= $nameKey ?>" value="<?= $name ?>">
+		<input type="hidden" name="<?= $valueKey ?>" value="<?= $value ?>">
+			<div class="form-group">
+				<div class="form-row">
+				<div class="col-md-6 col-sm-6">
+					<input class="btn btn-primary btn-block" type="submit" value="Change">
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<input class="btn btn-primary btn-block" type="reset" value="Abort">
+				</div>
+			</div>
+		</div>
+		 
+		 </div>
+		
+	
+	</form>
+	</div>
+	</div>
+	  
+	  <?php if($message !== ""): ?>
+			<h5 class='alert'><?php echo $message; ?></h5>
+	  <?php endif; ?>
+	  
+	  </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+  
+	
+	
+	
+	
+	<?php include 'footer.html'; ?>
+	
+    
+	<!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/popper/popper.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="../js/sb-admin-datatables.min.js"></script>
+    <script src="../js/sb-admin-charts.min.js"></script>
+  </div>
+
+  
+</body>
+
+</html>

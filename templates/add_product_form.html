@@ -1,0 +1,132 @@
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add New Customer</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+         
+        
+	 <form id="myForm" action="post_product" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-12 col-sm-12">
+                <label for="ProductName">Product name</label>
+                <input class="form-control" id="ProductName" name="ProductName" type="text" aria-describedby="nameHelp" placeholder="Enter product name" required>
+              </div>
+             
+            </div>
+          </div>
+      
+		
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-12 col-sm-12">
+                <label for="CategName">Category Type</label>
+					<select class="form-control" id="CategName" name="CategName" required>
+				<?php  $table=json_decode($category,true); ?>
+					
+						<option value="" disabled selected>Choose Category</option>
+				
+					
+					<?php	foreach($table['data'] as $row): ?>
+						<option value="<?php echo $row['category_id']; ?>"><?php echo $row['category_name']; ?></option>
+					<?php endforeach; ?>
+					
+				
+					</select>
+				
+              </div>
+          
+            </div>
+          </div>
+		  
+		  <div class="form-group">
+		  <div class="form-row">
+			<div class="col-sm-6 col-md-6">
+			
+				<input type="file" accept="image/*" name="mypic" onchange="loadFile(event)" required>
+			
+			
+			</div>
+			
+			<div class="col-sm-6 col-md-6">
+				
+					<img id="output" style="width:100px;height:100px;">
+					<script>
+						var loadFile = function(event) {
+						var output = document.getElementById('output');
+						output.src = URL.createObjectURL(event.target.files[0]);
+						};
+					</script>
+			
+			</div>
+			
+		  
+		  </div>
+		  </div>
+	
+			
+			  
+		<input type="hidden" name="<?= $nameKey ?>" value="<?= $name ?>">
+		<input type="hidden" name="<?= $valueKey ?>" value="<?= $value ?>">
+		
+				
+			
+		<div class="form-group">
+			<div class="form-row">
+				<div class="col-md-6 col-sm-6">
+					<input class="btn btn-primary btn-block" type="submit" value="Add">
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<input class="btn btn-primary btn-block" type="reset" value="Clear">
+				</div>
+			</div>
+		</div>
+    </form>
+	
+	</div>
+          <div class="modal-footer">
+		   <div id="msg"></div>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+<script type="text/javascript">
+    var frm = $('#myForm');
+
+    frm.submit(function (e) {
+
+        e.preventDefault();
+		var formData=new FormData(this);
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: formData,
+			contentType: false,
+			cache: false,
+			processData:false,
+            success: function (data) {
+                   console.log('Submission was successful.');
+                $("#msg").html(data);
+				location.reload(true);
+            },
+            error: function (data) {
+                alert('Product was already added');
+                console.log(data);
+				location.reload(true);
+            },
+        });
+    });
+</script>
+
